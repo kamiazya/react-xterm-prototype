@@ -20,7 +20,9 @@
     "lint": "tslint --project ./tsconfig.json",
     "storybook": "start-storybook"
   },
-  "dependencies": {},
+  "dependencies": {
+    "xterm": "^4.4.0"
+  },
   "peerDependencies": {
     "prop-types": "^15.5.4",
     "react": "^15.0.0 || ^16.0.0",

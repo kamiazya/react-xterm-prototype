@@ -1,7 +1,7 @@
-import ExampleComponent from './';
+import { Xterm } from './';
 
 describe('ExampleComponent', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy();
+    expect(Xterm).toBeTruthy();
   });
 });
