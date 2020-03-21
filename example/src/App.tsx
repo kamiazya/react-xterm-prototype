@@ -1,10 +1,8 @@
-// tslint:disable: variable-name
 import * as React from 'react';
-import Xterm from './index';
+// tslint:disable-next-line: no-duplicate-imports
+import { FC, createRef, useEffect } from 'react';
 import { Terminal } from 'xterm';
-export default {
-  title: 'Xterm',
-};
+import Xterm from 'react-xterm-prototype';
 
 class FakeShell {
   public promptStr = '\r\n$ ';
@@ -24,24 +22,25 @@ class FakeShell {
     });
   }
 
-  public run() {
+  run() {
     this.term.writeln('Welcome to react-xterm');
     this.term.writeln('This is a local terminal emulation, without a real terminal in the back-end.');
     this.term.writeln('Type some keys and commands to play around.');
     this.prompt();
   }
 
-  public prompt(): void {
+  prompt() {
     this.term.write(this.promptStr);
   }
 }
 
-export const Example = () => {
-  const termRef = React.createRef<Terminal>();
-  React.useEffect(() => {
-    const shell = new FakeShell(termRef.current!);
+// tslint:disable-next-line: variable-name
+const App: FC = () => {
+  const termRef = createRef<Terminal>();
+  useEffect(() => {
+    const shell = new FakeShell(termRef.current);
     shell.run();
-  });
+  }, [termRef.current]);
 
   return (
     <Xterm
@@ -52,3 +51,5 @@ export const Example = () => {
     />
   );
 };
+
+export default App;

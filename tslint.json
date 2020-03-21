@@ -1,18 +1,20 @@
 {
   "extends": [
-      "tslint-config-airbnb",
-      "tslint-config-prettier"
+    "tslint-react-hooks",
+    "tslint-config-airbnb",
+    "tslint-config-prettier"
   ],
   "rulesDirectory": [
-      "tslint-plugin-prettier"
+    "tslint-plugin-prettier"
   ],
   "rules": {
-      "prettier": true,
-      "max-line-length": [true, 120],
-      "object-shorthand-properties-first": false,
-      "radix": false,
-      "ter-arrow-parens": false,
-      "no-boolean-literal-compare": true,
-      "import-name": false
+    "prettier": true,
+    "max-line-length": [true, 120],
+    "object-shorthand-properties-first": false,
+    "radix": false,
+    "ter-arrow-parens": false,
+    "no-boolean-literal-compare": true,
+    "import-name": false,
+    "react-hooks-nesting": "error"
   }
 }

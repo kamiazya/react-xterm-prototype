@@ -1,15 +1,21 @@
 // tslint:disable: variable-name
 import * as React from 'react';
-import { Terminal, ITerminalOptions } from 'xterm';
+import * as xterm from 'xterm';
 import 'xterm/css/xterm.css';
 
-export const Xterm = React.forwardRef((options: ITerminalOptions, ref: React.Ref<Terminal>) => {
+type Props = {
+  options?: xterm.ITerminalOptions;
+};
+
+export const Xterm = React.forwardRef((props: Props, ref: React.Ref<xterm.Terminal>) => {
+  const term = React.useMemo(() => new xterm.Terminal(props.options), [props.options]);
   const containerRef = React.createRef<HTMLDivElement>();
-  const term = new Terminal(options);
-  React.useImperativeHandle(ref, () => term);
+  React.useImperativeHandle(ref, () => term, [term]);
   React.useEffect(() => {
     term.open(containerRef.current!);
     return () => term.dispose();
   });
   return <div ref={containerRef} />;
 });
+
+export default Xterm;
