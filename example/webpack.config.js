@@ -6,7 +6,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx$/,
+        test: /\.tsx?$/,
         use: [
           {
             loader: 'awesome-typescript-loader',
@@ -34,7 +34,7 @@ module.exports = {
   },
   resolve: {
     modules: ['node_modules', path.resolve('./src')],
-    extensions: ['.tsx', '.js', '.ts', 'json'],
+    extensions: ['.tsx', '.tx', '.js', '.ts', 'json'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

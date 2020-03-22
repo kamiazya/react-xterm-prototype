@@ -1,13 +1,5 @@
-// tslint:disable: variable-name
-import * as React from 'react';
-import { Xterm, useTerminal } from './index';
 import { Terminal } from 'xterm';
-
-export default {
-  title: 'Xterm',
-};
-
-class FakeShell {
+export class FakeShell {
   public promptStr = '\r\n$ ';
   constructor(private term: Terminal) {
     term.onKey(({ key, domEvent }) => {
@@ -24,22 +16,13 @@ class FakeShell {
       }
     });
   }
-
   public run() {
     this.term.writeln('Welcome to react-xterm');
     this.term.writeln('This is a local terminal emulation, without a real terminal in the back-end.');
     this.term.writeln('Type some keys and commands to play around.');
     this.prompt();
   }
-
-  public prompt(): void {
+  public prompt() {
     this.term.write(this.promptStr);
   }
 }
-
-export const Example = () => {
-  const term = useTerminal();
-  const shell = new FakeShell(term);
-  shell.run();
-  return <Xterm />;
-};

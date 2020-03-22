@@ -3,17 +3,16 @@ import * as React from 'react';
 import * as xterm from 'xterm';
 
 type Props = {
-  instance: xterm.Terminal;
+  terminal: xterm.Terminal;
 };
 
-export const XtermContainer: React.FC<Props> = (props: Props) => {
-  const containerRef = React.createRef<HTMLDivElement>();
+export const XtermContainer: React.FC<Props> = ({ terminal }) => {
+  const divRef = React.createRef<HTMLDivElement>();
   React.useEffect(() => {
-    props.instance.open(containerRef.current!);
-    return () => props.instance.dispose();
-  }, [props.instance]);
-  return <div ref={containerRef} />;
+    terminal.open(divRef.current!);
+    return () => terminal.dispose();
+  }, [terminal]);
+  return <div ref={divRef} />;
 };
 
 XtermContainer.displayName = 'XtermContainer';
-export default XtermContainer;

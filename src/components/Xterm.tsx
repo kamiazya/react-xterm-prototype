@@ -2,16 +2,16 @@
 import * as React from 'react';
 import * as xterm from 'xterm';
 import { XtermContainer } from './XtermContainer';
+import { useTerminal } from '../hooks/use-terminal';
 
 type Props = {
-  options?: xterm.ITerminalOptions;
+  // options?: xterm.ITerminalOptions;
 };
 
-export const Xterm = React.forwardRef((props: Props, ref: React.Ref<xterm.Terminal>) => {
-  const term = React.useMemo(() => new xterm.Terminal(props.options), [props.options]);
-  React.useImperativeHandle(ref, () => term, [term]);
-  return <XtermContainer instance={term} />;
+export const Xterm = React.forwardRef((_: Props, ref: React.Ref<xterm.Terminal>) => {
+  const terminal = useTerminal();
+  React.useImperativeHandle(ref, () => terminal, [terminal]);
+  return <XtermContainer terminal={terminal} />;
 });
 
 Xterm.displayName = 'Xterm';
-export default Xterm;
