@@ -5,19 +5,6 @@ export class MyShellAddon implements ITerminalAddon {
 
   public activate(terminal: Terminal): void {
     this.terminal = terminal;
-    this.terminal.onKey(({ key, domEvent }) => {
-      const printable = !domEvent.altKey && !domEvent.altKey && !domEvent.ctrlKey && !domEvent.metaKey;
-      if (domEvent.keyCode === 13) {
-        this.prompt();
-      } else if (domEvent.keyCode === 8) {
-        // Do not delete the prompt
-        if (terminal.buffer.cursorX > 2) {
-          this.terminal.write('\b \b');
-        }
-      } else if (printable) {
-        this.terminal.write(key);
-      }
-    });
   }
   public dispose(): void {}
   public run() {
