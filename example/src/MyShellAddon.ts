@@ -1,13 +1,5 @@
-// tslint:disable: variable-name
-import * as React from 'react';
-import { Xterm, useTerminal } from './index';
 import { Terminal, ITerminalAddon } from 'xterm';
-
-export default {
-  title: 'Xterm',
-};
-
-class MyShellAddon implements ITerminalAddon {
+export class MyShellAddon implements ITerminalAddon {
   public promptStr = '\r\n$ ';
   private terminal!: Terminal;
 
@@ -39,11 +31,3 @@ class MyShellAddon implements ITerminalAddon {
     this.terminal.write(this.promptStr);
   }
 }
-
-export const Example = () => {
-  const term = useTerminal();
-  const shell = new MyShellAddon();
-  term.loadAddon(shell);
-  shell.run();
-  return <Xterm />;
-};
