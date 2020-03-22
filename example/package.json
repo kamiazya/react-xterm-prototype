@@ -13,9 +13,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --mode development",
-    "build": "rollup -c",
-    "build:w": "rollup -cw",
-    "eject": "react-scripts eject"
+    "build": "webpack --config webpack.config.js --mode production"
   },
   "babel": {
     "presets": [
