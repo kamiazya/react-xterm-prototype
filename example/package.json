@@ -9,7 +9,7 @@
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-xterm-prototype": "link:..",
-    "xterm": "^4.4.0"
+    "xterm": "link:../node_modules/xterm"
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --mode development",
