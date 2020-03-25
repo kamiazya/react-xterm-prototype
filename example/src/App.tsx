@@ -1,7 +1,7 @@
 // tslint:disable: variable-name
 import React, { FC, useMemo } from 'react';
 import { Xterm } from 'react-xterm-prototype';
-import { MyShellApp } from './MyShellApp';
+import { ShellApp } from './ShellApp';
 
 const App: FC = () => {
   return (
@@ -9,7 +9,7 @@ const App: FC = () => {
       {useMemo(
         () => (
           <Xterm cursorStyle="block">
-            <MyShellApp />
+            <ShellApp />
           </Xterm>
         ),
         [],

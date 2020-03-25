@@ -1,5 +1,5 @@
 import { Terminal, ITerminalAddon } from 'xterm';
-export class MyShellAddon implements ITerminalAddon {
+export class ShellAddon implements ITerminalAddon {
   public promptStr = '\r\n$ ';
   private terminal!: Terminal;
 
