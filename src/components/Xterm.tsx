@@ -1,19 +1,27 @@
 // tslint:disable: variable-name
 import * as React from 'react';
-import * as xterm from 'xterm';
-import { useTerminal } from '../hooks/use-terminal';
+import { TerminalContext } from '../contexts/TerminalContext';
+import { Terminal, ITerminalOptions } from 'xterm';
+import { XtermContainer } from './XtermContainer';
 
-export const Xterm = React.forwardRef((_, ref: React.Ref<xterm.Terminal>) => {
-  const terminal = useTerminal();
-  React.useImperativeHandle(ref, () => terminal, [terminal]);
-  const divRef = React.createRef<HTMLDivElement>();
-  React.useEffect(() => {
-    terminal.open(divRef.current!);
-    return () => {
-      terminal.dispose();
-    };
-  }, [terminal]);
-  return <div ref={divRef} />;
-});
+type Props = {
+  onTerminal?: (terminal: Terminal) => void;
+} & ITerminalOptions;
+
+export const Xterm: React.FC<Props> = ({ children, onTerminal, ...options }) => {
+  const terminal = React.useMemo(() => {
+    const terminal = new Terminal(options);
+    if (onTerminal) onTerminal(terminal);
+    return terminal;
+  }, [options]);
+  return React.useMemo(
+    () => (
+      <TerminalContext.Provider value={terminal}>
+        <XtermContainer>{children}</XtermContainer>
+      </TerminalContext.Provider>
+    ),
+    [terminal],
+  );
+};
 
 Xterm.displayName = 'Xterm';
