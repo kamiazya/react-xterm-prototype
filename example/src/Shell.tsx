@@ -1,17 +1,13 @@
 // tslint:disable: variable-name
-import React, { FC, useMemo, useEffect } from 'react';
-import { useTerminal, useKeyEvent } from 'react-xterm-prototype';
+import React, { FC, useEffect } from 'react';
+import { useTerminal, useKeyEvent, useAddon } from 'react-xterm-prototype';
 import { ShellAddon } from './ShellAddon';
 
 export const Shell: FC = ({ children }) => {
   const terminal = useTerminal();
-  const shell = useMemo(() => new ShellAddon(), []);
+  const shell = useAddon(new ShellAddon());
   useEffect(() => {
-    terminal.loadAddon(shell);
     shell.run();
-    return () => {
-      shell.dispose();
-    };
   }, []);
 
   useKeyEvent(({ key, domEvent }) => {
