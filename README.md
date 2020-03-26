@@ -13,6 +13,18 @@ yan add react-xterm-prototype
 
 ## Usage
 
+### index.tsx
+
+```tsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import 'xterm/css/xterm.css';
+import './index.css';
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
 ### App.tsx
 
 ```tsx
@@ -34,19 +46,15 @@ export default App;
 ### Shell.tsx
 
 ```tsx
-import React, { FC, useMemo, useEffect } from 'react';
-import { useTerminal, useKeyEvent } from 'react-xterm-prototype';
+import React, { FC, useEffect } from 'react';
+import { useTerminal, useKeyEvent, useAddon } from 'react-xterm-prototype';
 import { ShellAddon } from './ShellAddon';
 
 export const Shell: FC = ({ children }) => {
   const terminal = useTerminal();
-  const shell = useMemo(() => new ShellAddon(), []);
+  const shell = useAddon(new ShellAddon());
   useEffect(() => {
-    terminal.loadAddon(shell);
     shell.run();
-    return () => {
-      shell.dispose();
-    };
   }, []);
 
   useKeyEvent(({ key, domEvent }) => {
