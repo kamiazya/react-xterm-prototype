@@ -3,7 +3,7 @@ import React, { FC, useMemo, useEffect } from 'react';
 import { useTerminal, useKeyEvent } from 'react-xterm-prototype';
 import { ShellAddon } from './ShellAddon';
 
-const useShell = () => {
+export const Shell: FC = ({ children }) => {
   const terminal = useTerminal();
   const shell = useMemo(() => new ShellAddon(), []);
   useEffect(() => {
@@ -27,9 +27,5 @@ const useShell = () => {
       terminal.write(key);
     }
   });
-};
-
-export const ShellApp: FC = ({ children }) => {
-  useShell();
   return <>{children}</>;
 };

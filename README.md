@@ -1,23 +1,92 @@
 # react-xterm-prototype
 
+WIP
+
 ## Install
 
 ```bash
+# npm
 npm install --save react-xterm-prototype
+# yarn
+yan add react-xterm-prototype
 ```
 
 ## Usage
 
+### App.tsx
+
 ```tsx
-import * as React from 'react'
+import React, { FC } from 'react';
+import Xterm from 'react-xterm-prototype';
+import { ShellApp } from './ShellApp';
 
-import MyComponent from 'react-xterm-prototype'
+const App: FC = () => (
+  <main>
+    <Xterm cursorStyle="block">
+      <Shell />
+    </Xterm>
+  </main>
+);
 
-class Example extends React.Component {
-  render () {
-    return (
-      <MyComponent />
-    )
+export default App;
+```
+
+### Shell.tsx
+
+```tsx
+import React, { FC, useMemo, useEffect } from 'react';
+import { useTerminal, useKeyEvent } from 'react-xterm-prototype';
+import { ShellAddon } from './ShellAddon';
+
+export const Shell: FC = ({ children }) => {
+  const terminal = useTerminal();
+  const shell = useMemo(() => new ShellAddon(), []);
+  useEffect(() => {
+    terminal.loadAddon(shell);
+    shell.run();
+    return () => {
+      shell.dispose();
+    };
+  }, []);
+
+  useKeyEvent(({ key, domEvent }) => {
+    const printable = !domEvent.altKey && !domEvent.altKey && !domEvent.ctrlKey && !domEvent.metaKey;
+    if (domEvent.keyCode === 13) {
+      shell.prompt();
+    } else if (domEvent.keyCode === 8) {
+      // Do not delete the prompt
+      if (terminal.buffer.cursorX > 2) {
+        terminal.write('\b \b');
+      }
+    } else if (printable) {
+      terminal.write(key);
+    }
+  });
+  return <>{children}</>;
+};
+```
+
+### ShellAddon.ts
+
+```ts
+import { Terminal, ITerminalAddon } from 'xterm';
+export class ShellAddon implements ITerminalAddon {
+  public promptStr = '\r\n$ ';
+  private terminal!: Terminal;
+
+  public activate(terminal: Terminal): void {
+    this.terminal = terminal;
+  }
+  public dispose(): void {}
+  public run() {
+    this.terminal.writeln('Welcome to react-xterm');
+    this.terminal.writeln('This is a local terminal emulation, without a real terminal in the back-end.');
+    this.terminal.writeln('Type some keys and commands to play around.');
+    this.prompt();
+  }
+
+  public prompt(): void {
+    this.terminal.write(this.promptStr);
   }
 }
 ```
