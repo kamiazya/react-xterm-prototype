@@ -3,6 +3,10 @@ export class ShellAddon implements ITerminalAddon {
   public promptStr = '\r\n$ ';
   private terminal!: Terminal;
 
+  get deletable(): boolean {
+    return this.terminal.buffer.cursorX > 2;
+  }
+
   public activate(terminal: Terminal): void {
     this.terminal = terminal;
   }
@@ -16,5 +20,13 @@ export class ShellAddon implements ITerminalAddon {
 
   public prompt(): void {
     this.terminal.write(this.promptStr);
+  }
+
+  public delete(): void {
+    this.terminal.write('\b \b');
+  }
+
+  public write(data: string): void {
+    this.terminal.write(data);
   }
 }
