@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { Xterm, useTerminal } from './index';
 import { Terminal, ITerminalAddon } from 'xterm';
-import { useKeyInput } from './hooks/use-key-input';
+import { useKeyEvent } from './hooks/use-events';
 
 export default {
   title: 'Xterm',
@@ -34,7 +34,7 @@ export const Example = () => {
   terminal.loadAddon(shell);
   shell.run();
 
-  useKeyInput(({ key, domEvent }) => {
+  useKeyEvent(({ key, domEvent }) => {
     const printable = !domEvent.altKey && !domEvent.altKey && !domEvent.ctrlKey && !domEvent.metaKey;
     if (domEvent.keyCode === 13) {
       shell.prompt();

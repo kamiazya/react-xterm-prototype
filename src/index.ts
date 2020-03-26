@@ -1,6 +1,6 @@
-import { TerminalContext } from './contexts/TerminalContext';
 import { Xterm } from './components/Xterm';
-import { useTerminal } from './hooks/use-terminal';
-import { useKeyInput } from './hooks/use-key-input';
-export { Xterm, TerminalContext, useTerminal, useKeyInput };
+export * from './contexts/TerminalContext';
+export * from './hooks/use-terminal';
+export * from './hooks/use-events';
+export { Xterm };
 export default Xterm;

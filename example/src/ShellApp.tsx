@@ -1,6 +1,6 @@
 // tslint:disable: variable-name
 import React, { FC, useMemo, useEffect } from 'react';
-import { useTerminal, useKeyInput } from 'react-xterm-prototype';
+import { useTerminal, useKeyEvent } from 'react-xterm-prototype';
 import { ShellAddon } from './ShellAddon';
 
 const useShell = () => {
@@ -9,9 +9,12 @@ const useShell = () => {
   useEffect(() => {
     terminal.loadAddon(shell);
     shell.run();
+    return () => {
+      shell.dispose();
+    };
   }, []);
 
-  useKeyInput(({ key, domEvent }) => {
+  useKeyEvent(({ key, domEvent }) => {
     const printable = !domEvent.altKey && !domEvent.altKey && !domEvent.ctrlKey && !domEvent.metaKey;
     if (domEvent.keyCode === 13) {
       shell.prompt();
