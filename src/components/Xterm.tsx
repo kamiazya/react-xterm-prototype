@@ -3,16 +3,13 @@ import { Terminal, ITerminalOptions } from 'xterm';
 import { TerminalContext } from '../contexts/TerminalContext';
 import { XtermContainer } from './XtermContainer';
 
-type Props = {
-  onTerminal?: (terminal: Terminal) => void;
-} & ITerminalOptions;
+type Props = ITerminalOptions;
 
-export const Xterm: React.FC<Props> = ({ children, onTerminal, ...options }) => {
+export const Xterm: React.FC<Props> = ({ children, ...options }) => {
   const terminal = React.useMemo(() => {
     const terminal = new Terminal(options);
-    if (onTerminal) onTerminal(terminal);
     return terminal;
-  }, [onTerminal, options]);
+  }, [options]);
   return React.useMemo(
     () => (
       <TerminalContext.Provider value={terminal}>
