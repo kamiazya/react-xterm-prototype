@@ -1,7 +1,6 @@
-// tslint:disable: variable-name
 import * as React from 'react';
-import { TerminalContext } from '../contexts/TerminalContext';
 import { Terminal, ITerminalOptions } from 'xterm';
+import { TerminalContext } from '../contexts/TerminalContext';
 import { XtermContainer } from './XtermContainer';
 
 type Props = {
@@ -13,14 +12,14 @@ export const Xterm: React.FC<Props> = ({ children, onTerminal, ...options }) => 
     const terminal = new Terminal(options);
     if (onTerminal) onTerminal(terminal);
     return terminal;
-  }, [options]);
+  }, [onTerminal, options]);
   return React.useMemo(
     () => (
       <TerminalContext.Provider value={terminal}>
         <XtermContainer>{children}</XtermContainer>
       </TerminalContext.Provider>
     ),
-    [terminal],
+    [children, terminal],
   );
 };
 

@@ -1,4 +1,3 @@
-// tslint:disable: variable-name
 import React, { FC } from 'react';
 import Xterm from 'react-xterm-prototype';
 import { Shell } from './Shell';

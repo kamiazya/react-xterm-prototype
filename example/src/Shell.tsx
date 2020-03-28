@@ -1,4 +1,3 @@
-// tslint:disable: variable-name
 import React, { FC, useEffect } from 'react';
 import { useKeyEvent, useAddon } from 'react-xterm-prototype';
 import { ShellAddon } from './ShellAddon';

@@ -1,4 +1,3 @@
-// tslint:disable: variable-name
 import { createContext, Context } from 'react';
 import { Terminal } from 'xterm';
 

@@ -14,19 +14,6 @@ module.exports = {
         ],
       },
       {
-        test: /\.(js)$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'source-map-loader',
-            options: {
-              enforce: 'pre',
-              presets: ['@babel/preset-env', '@babel/preset-react'],
-            },
-          },
-        ],
-      },
-      {
         test: /\.css$/,
         loaders: ['style-loader', 'css-loader'],
       },
